@@ -1,17 +1,26 @@
 import { useState } from 'react'
 
+import { useDispatch } from 'react-redux';
+import { update } from '../modules/topics';
+
 function Update( props ) {
+  const dispatch = useDispatch();
+
   const [ title, setTitle ] = useState( props.title );
-  const [ body, setBody ] = useState( props.body );
+  const [ body, setBody ]   = useState( props.body );
+
+  const onSubmit = event => {
+    event.preventDefault();
+    
+    const title = event.target.title.value;
+    const body = event.target.body.value;
+
+    dispatch(update( props.id, title, body )); 
+  }; 
 
   return <article>
     <h2>Update</h2>
-    <form onSubmit={ (event) => {
-      event.preventDefault();
-      const title = event.target.title.value;
-      const body = event.target.body.value;
-      props.onUpdate( title, body ); 
-    }}>
+    <form onSubmit={ onSubmit }>
       <p>
         <input type="text" name="title" placeholder="title" value={ title } onChange={ (event) => {
           setTitle(event.target.value)
