@@ -1,3 +1,17 @@
+# 참고 레퍼런스
+
+> - https://react.vlpt.us/basic/
+> - https://codingapple.com/unit/react-if-else-patterns-enum-switch-case/
+
+
+해당 소스는 아래의 라이브러리를 적용
+
+- 리액트
+- 리덕스
+- 리액트 라우터
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
