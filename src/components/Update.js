@@ -1,13 +1,22 @@
 import { useState } from 'react'
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useDispatch } from 'react-redux';
 import { update } from '../modules/topics';
 
-function Update( props ) {
+function Update() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const { id }     = useParams();
+  const { topics } = useSelector(state => ({
+      topics: state.topics.list
+  }));
 
-  const [ title, setTitle ] = useState( props.title );
-  const [ body, setBody ]   = useState( props.body );
+  const topic = topics.find( ( topic ) => topic.id === Number( id ) );
+
+  const [ title, setTitle ] = useState( topic?.title || 'Opps' );
+  const [ body, setBody ]   = useState( topic?.body  || 'Empty!!' );
 
   const onSubmit = event => {
     event.preventDefault();
@@ -15,7 +24,9 @@ function Update( props ) {
     const title = event.target.title.value;
     const body = event.target.body.value;
 
-    dispatch(update( props.id, title, body )); 
+    dispatch(update( Number( id ), title, body )); 
+
+    navigate("/detail/" + id);
   }; 
 
   return <article>
